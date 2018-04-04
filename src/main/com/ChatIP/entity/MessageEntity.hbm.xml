@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.ChatIP.entity.MessageEntity" table="message" schema="myshema">
+        <id name="id">
+            <column name="id" sql-type="int(11)" length="11"/>
+        </id>
+        <property name="date">
+            <column name="date" sql-type="timestamp(6)" length="6"/>
+        </property>
+        <property name="name">
+            <column name="name" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="text">
+            <column name="text" sql-type="longtext"/>
+        </property>
+        <property name="namePCAndIP">
+            <column name="namePCAndIP" sql-type="varchar(25)" length="25"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="varchar(25)" length="25"/>
+        </property>
+    </class>
+</hibernate-mapping>
