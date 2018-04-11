@@ -1,3 +1,5 @@
+package java;
+
 import com.ChatIP.Settings;
 import com.ChatIP.entity.Message;
 import org.junit.jupiter.api.Test;
