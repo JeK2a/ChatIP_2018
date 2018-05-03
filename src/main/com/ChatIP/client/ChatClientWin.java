@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -49,6 +50,19 @@ public class ChatClientWin {
         }
     }
 
+    public static String getWhoIm() {
+
+        String whoIm = "";
+
+        try {
+            whoIm = (InetAddress.getLocalHost().getHostName() + " - " + InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        return whoIm;
+    }
+
     private static class MainFrame extends JFrame {
         private ObjectOutputStream outputStream; // Исходящий поток
         private String status = "online";        // Статус текущего пользователя
@@ -59,18 +73,18 @@ public class ChatClientWin {
             setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);  // Завершить работу программы, при закрытии окна
 
             try {
-                InetAddress address = InetAddress.getByName(Settings.getServerPc()); // получение адреса сервера в сети
-                Socket socket = new Socket(address, Settings.getPort());             // открытия соета для связи с сервером
+                InetAddress address = InetAddress.getByName(Settings.getNameServerPC()); // получение адреса сервера в сети
+                Socket socket = new Socket(address, Settings.getPort());                 // открытия соета для связи с сервером
 
-                whoIm = InetAddress.getLocalHost().getHostName() + " - " + InetAddress.getLocalHost().getHostAddress();
+                whoIm = getWhoIm();
 
                 outputStream = new ObjectOutputStream(socket.getOutputStream()); // Создание потока для отправки сообщение на сервер
                 new Thread(new ClientInWin(socket)).start();                     // Создание потока для входящих сообщений с сервера
 
-                System.out.println(Settings.getServerPc()); // вывод на экран название ПК сервера
-                System.out.println(Settings.getPort());     // вывод на экран порт ПК сервера
-                System.out.println("address = " + address); // вывод на экран адреса
-                System.out.println("socket = " + socket);   // вывод на экран сокета
+                System.out.println(Settings.getNameServerPC()); // вывод на экран название ПК сервера
+                System.out.println(Settings.getPort());         // вывод на экран порт ПК сервера
+                System.out.println("address = " + address);     // вывод на экран адреса
+                System.out.println("socket = " + socket);       // вывод на экран сокета
             } catch (IOException e) {
                 System.err.println(e);
             }
@@ -150,6 +164,7 @@ public class ChatClientWin {
     }
 
     public static void main(String[] args) {
+        System.out.println(getWhoIm());
         new EnterNameDialog(new MainFrame());
     }
 }

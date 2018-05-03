@@ -7,11 +7,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 // Получение настроек из XML файла
 public class Settings {
 
-    private static String serverPc;    // Имя серверного компьютера
+    private static String nameServerPC;    // Имя серверного компьютера
     private static int port;           // Порт
     private static int sizeHistory;    // Получить максимального количества сообщении в истории
     private static int sizeMaxClients; // Получение максимального количества подключенных к серверу клиентов
@@ -21,9 +23,9 @@ public class Settings {
         return port;
     }
 
-    public static String getServerPc() {
+    public static String getNameServerPC() {
         openFileXML();
-        return serverPc;
+        return nameServerPC;
     }
 
     public static int getSizeHistory() {
@@ -66,7 +68,14 @@ public class Settings {
                 String text = textNode.getData().trim();
 
                 switch (childElement.getTagName()) {
-                    case "server_pc"       : serverPc       = text;                   break;
+//                    case "server_pc"       : nameServerPC   = text;                   break;
+                    case "server_pc"       :
+                        try {
+                            nameServerPC   = InetAddress.getLocalHost().getHostName();
+                        } catch (UnknownHostException e) {
+                            e.printStackTrace();
+                        }
+                        break;
                     case "port"            : port           = Integer.parseInt(text); break;
                     case "size_history"    : sizeHistory    = Integer.parseInt(text); break;
                     case "size_max_clients": sizeMaxClients = Integer.parseInt(text); break;

@@ -34,7 +34,7 @@ class MyTest {
     @Test
     void testSettings() {
         Settings.getPort();
-        Settings.getServerPc();
+        Settings.getNameServerPC();
         Settings.getSizeHistory();
         Settings.getSizeMaxClients();
         System.out.println("TestSettings Все ок!");

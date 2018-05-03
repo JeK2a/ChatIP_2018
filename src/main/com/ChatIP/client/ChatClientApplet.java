@@ -36,7 +36,7 @@ public class ChatClientApplet extends Applet implements ActionListener {
         textEnter.requestFocus();              // Установить фокус на панель ввода
 
         try {
-            InetAddress address = InetAddress.getByName(Settings.getServerPc()); // получение адреса сервера в сети
+            InetAddress address = InetAddress.getByName(Settings.getNameServerPC()); // получение адреса сервера в сети
             Socket socket = new Socket(address, Settings.getPort());             // открытия соета для связи с сервером
 
             // Получение IP по имени компбютера
@@ -45,7 +45,7 @@ public class ChatClientApplet extends Applet implements ActionListener {
             out = new ObjectOutputStream(socket.getOutputStream()); // создание потока для отправки сообщение на сервер
             new Thread(new ClientInWeb(socket)).start();            // Создание потока для входящих сообщений с сервера
 
-            System.out.println(Settings.getServerPc()); // вывод на экран название ПК сервера
+            System.out.println(Settings.getNameServerPC()); // вывод на экран название ПК сервера
             System.out.println(Settings.getPort());     // вывод на экран порт ПК сервера
             System.out.println("address = " + address); // вывод на экран адреса
             System.out.println("socket = " + socket);   // вывод на экран сокета
