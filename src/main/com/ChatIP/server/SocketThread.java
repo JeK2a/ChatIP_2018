@@ -33,6 +33,7 @@ class SocketThread implements Runnable {
         } catch (IOException ex) {
             System.err.println(ex);
         }
+
         // Отправка новому клиенту истории чата
         ObjectOutputStream outputStream;
         try {
@@ -44,12 +45,13 @@ class SocketThread implements Runnable {
         } catch (IOException ex) {
             System.err.println(ex);
         }
+
         // Работа постоянного приема входящих сообщений с постоянного входящего потока
         while (true) {
             try {
                 message = (Message) inputStream.readObject();           // Прием сообщение с постоянного входящего потока
                 ChatHistory.add(message);                               // Добавление сообщения в историю
-                AddToMySQL.addMessageToMySQL(message);                  // Добавление сообщения в базу
+                AddToMySQL.addMessageToDB(message);                  // Добавление сообщения в базу
                 // Окончание работы потока
                 if (message.getText().contains("END")) {                // Если во входящем сообщении есть END, отклють клиента
                     listSocket.remove(SOCKET);                          // Удалить из списка сокет клиента, который отключился от клиента

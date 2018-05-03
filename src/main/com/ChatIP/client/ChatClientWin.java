@@ -55,7 +55,7 @@ public class ChatClientWin {
         private String whoIm = "";               // Информация о текущем компьютере
 
         MainFrame() {
-            super("IPChatClient V1.2");
+            super("IPChatClient V1.3");
             setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);  // Завершить работу программы, при закрытии окна
 
             try {
@@ -122,19 +122,29 @@ public class ChatClientWin {
                 }
 
                 @Override
-                public void windowClosed(WindowEvent e) { }
+                public void windowClosed(WindowEvent e) {
+
+                }
 
                 @Override
-                public void windowIconified(WindowEvent e) { }
+                public void windowIconified(WindowEvent e) {
+
+                }
 
                 @Override
-                public void windowDeiconified(WindowEvent e) { }
+                public void windowDeiconified(WindowEvent e) {
+
+                }
 
                 @Override
-                public void windowActivated(WindowEvent e) { }
+                public void windowActivated(WindowEvent e) {
+
+                }
 
                 @Override
-                public void windowDeactivated(WindowEvent e) { }
+                public void windowDeactivated(WindowEvent e) {
+
+                }
             });
         }
     }

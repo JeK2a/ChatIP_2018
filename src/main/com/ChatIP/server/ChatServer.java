@@ -17,7 +17,9 @@ class ChatServer extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Выходить из программы при закрытии основного окна
         this.addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) { }
+            public void windowOpened(WindowEvent e) {
+
+            }
 
             @Override
             public void windowClosing(WindowEvent e) {
@@ -25,20 +27,30 @@ class ChatServer extends JFrame {
             }
 
             @Override
-            public void windowClosed(WindowEvent e) { }
+            public void windowClosed(WindowEvent e) {
+
+            }
 
             @Override
-            public void windowIconified(WindowEvent e) { }
+            public void windowIconified(WindowEvent e) {
+
+            }
 
             @Override
-            public void windowDeiconified(WindowEvent e) { }
+            public void windowDeiconified(WindowEvent e) {
+
+            }
 
             @Override
-            public void windowActivated(WindowEvent e) { }
+            public void windowActivated(WindowEvent e) {
+
+            }
 
             @Override
-            public void windowDeactivated(WindowEvent e) { }
-        });      // Добавить событи для взаимодействия с основным окном
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        }); // Добавить событи для взаимодействия с основным окном
 
         textArea = new JTextArea(20, 30);         // Панель для вывода сообщения
         textArea.setEditable(false);                             // Сделать панель для вывода текста активной

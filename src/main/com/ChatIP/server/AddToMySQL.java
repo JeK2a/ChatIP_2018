@@ -10,7 +10,7 @@ public class AddToMySQL {
     private static final String user = "root";
     private static final String password = "root";
 
-    public static void addMessageToMySQL(Message message) {
+    public static void addMessageToDB(Message message) {
         Timestamp timestamp = new Timestamp(message.getDate().getTime());
         String name = message.getName();
         String text = message.getText();

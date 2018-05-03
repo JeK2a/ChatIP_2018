@@ -10,8 +10,9 @@ import java.io.IOException;
 
 // Получение настроек из XML файла
 public class Settings {
-    private static int port;           // Порт
+
     private static String serverPc;    // Имя серверного компьютера
+    private static int port;           // Порт
     private static int sizeHistory;    // Получить максимального количества сообщении в истории
     private static int sizeMaxClients; // Получение максимального количества подключенных к серверу клиентов
 
@@ -37,8 +38,10 @@ public class Settings {
 
     // Получение настроек из XML файла
     private static void openFileXML() {
+
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document doc = null;
+
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             File file = new File("configChat.xml");
@@ -54,16 +57,18 @@ public class Settings {
         NodeList children = root.getChildNodes();
 
         for (int i = 0; i < children.getLength(); i++) {
+
             Node child = children.item(i);
+
             if (child instanceof Element) {
                 Element childElement = (Element) child;
                 Text textNode = (Text) childElement.getFirstChild();
                 String text = textNode.getData().trim();
 
                 switch (childElement.getTagName()) {
-                    case "server_pc": serverPc = text; break;
-                    case "port": port = Integer.parseInt(text); break;
-                    case "size_history": sizeHistory = Integer.parseInt(text); break;
+                    case "server_pc"       : serverPc       = text;                   break;
+                    case "port"            : port           = Integer.parseInt(text); break;
+                    case "size_history"    : sizeHistory    = Integer.parseInt(text); break;
                     case "size_max_clients": sizeMaxClients = Integer.parseInt(text); break;
                 }
             }

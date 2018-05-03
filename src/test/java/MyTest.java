@@ -22,7 +22,7 @@ class MyTest {
     }
 
     @Test
-    void testMessage() throws Exception {
+    void testMessage() {
         try {
             System.out.println(new Message(new Timestamp(new Date().getTime()), "JeK2a", "text", "PCPI", "status"));
             System.out.print("TestMessage Все ок!");
@@ -32,7 +32,7 @@ class MyTest {
     }
 
     @Test
-    void testSettings() throws Exception {
+    void testSettings() {
         Settings.getPort();
         Settings.getServerPc();
         Settings.getSizeHistory();
@@ -40,18 +40,18 @@ class MyTest {
         System.out.println("TestSettings Все ок!");
     }
 
-    private static final String url = "jdbc:mysql://localhost:3306";
+    private static final String url = "jdbc:mysql://localhost:3308";
     private static final String user = "root";
-    private static final String password = "nokia3510";
+    private static final String password = "root";
 
     @Test
     void testAddToMySQL() throws Exception {
 
-        AddToMySQL.addMessageToMySQL(new Message(new Timestamp(new Date().getTime()), "JeK2aTest", "testText", "testPC", "test"));
+        AddToMySQL.addMessageToDB(new Message(new Timestamp(new Date().getTime()), "JeK2aTest", "testText", "testPC", "test"));
         System.out.println("TestAddToMySQL 1 Все ок!");
 
-        for (int i = 0; i<10000; i++) {
-            AddToMySQL.addMessageToMySQL(new Message(new Timestamp(new Date().getTime()), "JeK2aTest", "text", "testPC", "test"));
+        for (int i = 0; i < 10000; i++) {
+            AddToMySQL.addMessageToDB(new Message(new Timestamp(new Date().getTime()), "JeK2aTest", "text", "testPC", "test"));
         }
         System.out.println("TestAddToMySQL 3 Все ок!");
 
