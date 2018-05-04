@@ -2,6 +2,7 @@ package com.ChatIP.client;
 
 import com.ChatIP.Settings;
 import com.ChatIP.entity.Message;
+import com.ChatIP.inform.Information;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,18 +51,7 @@ public class ChatClientWin {
         }
     }
 
-    public static String getWhoIm() {
 
-        String whoIm = "";
-
-        try {
-            whoIm = (InetAddress.getLocalHost().getHostName() + " - " + InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-        return whoIm;
-    }
 
     private static class MainFrame extends JFrame {
         private ObjectOutputStream outputStream; // Исходящий поток
@@ -76,7 +66,7 @@ public class ChatClientWin {
                 InetAddress address = InetAddress.getByName(Settings.getNameServerPC()); // получение адреса сервера в сети
                 Socket socket = new Socket(address, Settings.getPort());                 // открытия соета для связи с сервером
 
-                whoIm = getWhoIm();
+                whoIm = Information.getWhoIm();
 
                 outputStream = new ObjectOutputStream(socket.getOutputStream()); // Создание потока для отправки сообщение на сервер
                 new Thread(new ClientInWin(socket)).start();                     // Создание потока для входящих сообщений с сервера
@@ -164,7 +154,7 @@ public class ChatClientWin {
     }
 
     public static void main(String[] args) {
-        System.out.println(getWhoIm());
+        System.out.println(Information.getWhoIm());
         new EnterNameDialog(new MainFrame());
     }
 }

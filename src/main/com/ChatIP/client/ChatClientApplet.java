@@ -2,6 +2,7 @@ package com.ChatIP.client;
 
 import com.ChatIP.Settings;
 import com.ChatIP.entity.Message;
+import com.ChatIP.inform.Information;
 
 import java.applet.Applet;
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.Date;
+
+import static com.ChatIP.inform.Information.getWhoIm;
 
 public class ChatClientApplet extends Applet implements ActionListener {
 
@@ -40,15 +43,15 @@ public class ChatClientApplet extends Applet implements ActionListener {
             Socket socket = new Socket(address, Settings.getPort());             // открытия соета для связи с сервером
 
             // Получение IP по имени компбютера
-            whoIm = InetAddress.getLocalHost().getHostName() + " - " + InetAddress.getLocalHost().getHostAddress();
+            whoIm = Information.getWhoIm();
 
             out = new ObjectOutputStream(socket.getOutputStream()); // создание потока для отправки сообщение на сервер
             new Thread(new ClientInWeb(socket)).start();            // Создание потока для входящих сообщений с сервера
 
-            System.out.println(Settings.getNameServerPC()); // вывод на экран название ПК сервера
-            System.out.println(Settings.getPort());     // вывод на экран порт ПК сервера
-            System.out.println("address = " + address); // вывод на экран адреса
-            System.out.println("socket = " + socket);   // вывод на экран сокета
+            System.out.println(Settings.getNameServerPC()); // вывод в консоль название ПК сервера
+            System.out.println(Settings.getPort());         // вывод в консоль порт ПК сервера
+            System.out.println("address = " + address);     // вывод в консоль адреса
+            System.out.println("socket = " + socket);       // вывод в консоль сокета
         } catch (IOException e) {
             System.err.println(e);
         }

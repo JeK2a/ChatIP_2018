@@ -17,19 +17,19 @@ public class Message implements Serializable {
 
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp date = null;
+    private Timestamp date;
 
     @Column(name = "name")
-    private String name = null;
+    private String name;
 
     @Column (name = "text")
-    private String text = null;
+    private String text;
 
     @Column(name = "namePCAndIP")
-    private String namePCAndIP = null;
+    private String namePCAndIP;
 
     @Column(name = "status")
-    private String status = null;
+    private String status;
 
     public Message(Timestamp date, String name, String text, String namePCAndIP, String status) {
         this.date = date;
