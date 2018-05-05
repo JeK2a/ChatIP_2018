@@ -33,9 +33,9 @@ public class ChatClientWin {
         EnterNameDialog(JFrame parent) { // Конструктор
             super(parent, "Регистрация пользователя", true);
             setLayout(new FlowLayout());
-            add(new JLabel("Введите имя"), BorderLayout.WEST); // Создать надпись
+            add(new JLabel("Введите имя"), BorderLayout.WEST);       // Создать надпись
             JTextField enterDialog = new JTextField("",15); // Поле для ввода имени пользователя
-            add(enterDialog, BorderLayout.CENTER); // Добавление на вторичное окно поля для ввода имени
+            add(enterDialog, BorderLayout.CENTER);                        // Добавление на вторичное окно поля для ввода имени
 
 
             JButton okB = new JButton("ok");        // Кнопка для ввода имени
@@ -46,8 +46,8 @@ public class ChatClientWin {
                 }
             });
             add(okB, BorderLayout.EAST); // Добавление в диалоговое окне кнопки для ввода сообщений
-            pack(); // Упаковать окно
-            setVisible(true); // Сделать диалоговое окно видимым =
+            pack();                      // Упаковать окно
+            setVisible(true);            // Сделать диалоговое окно видимым
         }
     }
 
@@ -98,7 +98,8 @@ public class ChatClientWin {
                 if (!textEnter.getText().equals("")) {
                     try {
                         // отправка сообщения на сервер
-                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()), name, textEnter.getText(), whoIm, status));
+                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()),
+                                name, textEnter.getText(), whoIm, status));
                         outputStream.flush();   // проталкивание буфера вывода
                         textEnter.setText("");  // обнуление строки для ввода текста
                     } catch (IOException e2) {
@@ -117,7 +118,8 @@ public class ChatClientWin {
                 @Override
                 public void windowClosing(WindowEvent e) {
                     try {
-                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()), name, "END", whoIm, "offline")); // отправка на сервер данных, что клиент отключился
+                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()),
+                                name, "END", whoIm, "offline")); // отправка на сервер данных, что клиент отключился
                         outputStream.flush(); // проталкивание буфера
                     } catch (IOException e1) {
                         System.err.println(e1);

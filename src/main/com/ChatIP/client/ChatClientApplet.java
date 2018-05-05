@@ -15,8 +15,6 @@ import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import static com.ChatIP.inform.Information.getWhoIm;
-
 public class ChatClientApplet extends Applet implements ActionListener {
 
     private static TextField textEnter = new TextField(50);

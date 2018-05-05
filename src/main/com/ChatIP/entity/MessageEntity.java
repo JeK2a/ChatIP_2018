@@ -77,11 +77,11 @@ public class MessageEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        MessageEntity that = (MessageEntity) o;
+        MessageEntity that = (MessageEntity) obj;
 
         if (id != that.id) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
