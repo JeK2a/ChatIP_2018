@@ -13,10 +13,10 @@ import java.net.UnknownHostException;
 // Получение настроек из XML файла
 public class Settings {
 
-    private static String nameServerPC;    // Имя серверного компьютера
-    private static int port;           // Порт
-    private static int sizeHistory;    // Получить максимального количества сообщении в истории
-    private static int sizeMaxClients; // Получение максимального количества подключенных к серверу клиентов
+    private static String nameServerPC; // Имя серверного компьютера
+    private static int port;            // Порт
+    private static int sizeHistory;     // Получить максимального количества сообщении в истории
+    private static int sizeMaxClients;  // Получение максимального количества подключенных к серверу клиентов
 
     public static int getPort() {
         openFileXML();
@@ -73,9 +73,10 @@ public class Settings {
                         try {
                             nameServerPC   = InetAddress.getLocalHost().getHostName();
                         } catch (UnknownHostException e) {
-                            e.printStackTrace();
+                            System.err.println(e);
                         }
                         break;
+
                     case "port"            : port           = Integer.parseInt(text); break;
                     case "size_history"    : sizeHistory    = Integer.parseInt(text); break;
                     case "size_max_clients": sizeMaxClients = Integer.parseInt(text); break;

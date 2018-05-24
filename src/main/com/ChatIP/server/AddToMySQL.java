@@ -6,9 +6,9 @@ import java.sql.*;
 
 public class AddToMySQL {
 
-    private static final String url = "jdbc:mysql://localhost:3308";
-    private static final String user = "root";
-    private static final String password = "root";
+    private static final String URL = "jdbc:mysql://localhost:3308";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
 
     public static void addMessageToDB(Message message) {
         Timestamp timestamp = new Timestamp(message.getDate().getTime());
@@ -20,7 +20,7 @@ public class AddToMySQL {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, password); // JDBC подключение к MySQL
+            connection = DriverManager.getConnection(URL, USER, PASSWORD); // JDBC подключение к MySQL
 
             if (connection == null) {                       // Если подключение к БД не установлено
                 System.err.println("Нет соединения с БД!"); // Вывести ошибку
@@ -30,7 +30,7 @@ public class AddToMySQL {
             Statement statement = connection.createStatement(); // getting Statement object to execute query
 
             // Создание запроса для добавление сообщения в базу
-            String query = "INSERT INTO myshema.message (date, name, text, namePCAndIP, status) \n" +
+            String query = "INSERT INTO myshema.message (date, name, text, namePCAndIP, status) VALUE (?, ?, ?, ?) \n" +
                            "VALUES (\'" + timestamp + "\', \'" + name + "\', \'" + text +
                            "\', \'" + namePCAndIP + "\', \'" + status + "\');";
             statement.executeUpdate(query); // Выполнить запрос
@@ -38,7 +38,8 @@ public class AddToMySQL {
              System.err.println(e);
         } finally {
             try {
-                connection.close();
+                if (connection != null)
+                    connection.close();
             } catch (SQLException e) {
                 System.err.println(e);
             }

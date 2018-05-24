@@ -2,6 +2,7 @@ package com.ChatIP.client;
 
 import com.ChatIP.Settings;
 import com.ChatIP.entity.Message;
+import com.ChatIP.inform.Information;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,9 +33,9 @@ public class ChatClientWin {
         EnterNameDialog(JFrame parent) { // Конструктор
             super(parent, "Регистрация пользователя", true);
             setLayout(new FlowLayout());
-            add(new JLabel("Введите имя"), BorderLayout.WEST); // Создать надпись
+            add(new JLabel("Введите имя"), BorderLayout.WEST);       // Создать надпись
             JTextField enterDialog = new JTextField("",15); // Поле для ввода имени пользователя
-            add(enterDialog, BorderLayout.CENTER); // Добавление на вторичное окно поля для ввода имени
+            add(enterDialog, BorderLayout.CENTER);                        // Добавление на вторичное окно поля для ввода имени
 
 
             JButton okB = new JButton("ok");        // Кнопка для ввода имени
@@ -45,23 +46,12 @@ public class ChatClientWin {
                 }
             });
             add(okB, BorderLayout.EAST); // Добавление в диалоговое окне кнопки для ввода сообщений
-            pack(); // Упаковать окно
-            setVisible(true); // Сделать диалоговое окно видимым =
+            pack();                      // Упаковать окно
+            setVisible(true);            // Сделать диалоговое окно видимым
         }
     }
 
-    public static String getWhoIm() {
 
-        String whoIm = "";
-
-        try {
-            whoIm = (InetAddress.getLocalHost().getHostName() + " - " + InetAddress.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-        return whoIm;
-    }
 
     private static class MainFrame extends JFrame {
         private ObjectOutputStream outputStream; // Исходящий поток
@@ -76,7 +66,7 @@ public class ChatClientWin {
                 InetAddress address = InetAddress.getByName(Settings.getNameServerPC()); // получение адреса сервера в сети
                 Socket socket = new Socket(address, Settings.getPort());                 // открытия соета для связи с сервером
 
-                whoIm = getWhoIm();
+                whoIm = Information.getWhoIm();
 
                 outputStream = new ObjectOutputStream(socket.getOutputStream()); // Создание потока для отправки сообщение на сервер
                 new Thread(new ClientInWin(socket)).start();                     // Создание потока для входящих сообщений с сервера
@@ -108,7 +98,8 @@ public class ChatClientWin {
                 if (!textEnter.getText().equals("")) {
                     try {
                         // отправка сообщения на сервер
-                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()), name, textEnter.getText(), whoIm, status));
+                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()),
+                                name, textEnter.getText(), whoIm, status));
                         outputStream.flush();   // проталкивание буфера вывода
                         textEnter.setText("");  // обнуление строки для ввода текста
                     } catch (IOException e2) {
@@ -127,7 +118,8 @@ public class ChatClientWin {
                 @Override
                 public void windowClosing(WindowEvent e) {
                     try {
-                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()), name, "END", whoIm, "offline")); // отправка на сервер данных, что клиент отключился
+                        outputStream.writeObject(new Message(new Timestamp(new Date().getTime()),
+                                name, "END", whoIm, "offline")); // отправка на сервер данных, что клиент отключился
                         outputStream.flush(); // проталкивание буфера
                     } catch (IOException e1) {
                         System.err.println(e1);
@@ -164,7 +156,7 @@ public class ChatClientWin {
     }
 
     public static void main(String[] args) {
-        System.out.println(getWhoIm());
+        System.out.println(Information.getWhoIm());
         new EnterNameDialog(new MainFrame());
     }
 }

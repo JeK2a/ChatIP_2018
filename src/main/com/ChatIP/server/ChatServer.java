@@ -12,9 +12,12 @@ import java.net.ServerSocket;
 class ChatServer extends JFrame {
     private static JTextArea textArea; // Панель для вывода сообщения
 
-    private ChatServer(String s) {
-        super(s);
+    private ChatServer(String title) {
+
+        super(title);
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Выходить из программы при закрытии основного окна
+
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -62,7 +65,7 @@ class ChatServer extends JFrame {
         add(scrollPane);                                                                     // Добавить на окно панель прокрутки
 
         setVisible(true); // Сделать окно видимым
-        pack();           //  Сжать окно до минимума
+        pack();           // Сжать окно до минимума
     }
 
     // Вывод сообщения
@@ -72,7 +75,7 @@ class ChatServer extends JFrame {
     }
 
     public static void main(String[] args) {
-        new ChatServer("IPChatServer V1.2");
+        new ChatServer("IPChatServer V1.3");
 
         try (ServerSocket serverSocket = new ServerSocket(Settings.getPort())) {
             enterMessage("Сервер запущен");

@@ -10,23 +10,25 @@ import java.util.LinkedList;
 
 class SocketThread implements Runnable {
 
-    private final Socket SOCKET;                                 // Сокет
+    private final Socket SOCKET;                                       // Сокет
     private static LinkedList<Socket> listSocket = new LinkedList<>(); // Список всех сокетов клиентов, подключенных к серверу
-    private static int clientsColvo = 0;                         // Количество подключенных клиентов
-    private Message message = null;                              // Сообщение
-    private ObjectInputStream inputStream = null;                // Входящий потока
+    private static int clientsQuantity = 0;                               // Количество подключенных клиентов
+    private ObjectInputStream inputStream = null;                      // Входящий потока
 
-    SocketThread(Socket socket) { this.SOCKET = socket; }        // Конструктор
+    SocketThread(Socket socket) { this.SOCKET = socket; }              // Конструктор
 
     // Получение количества клиентов
     static int getClientsQuantity() {
-        return clientsColvo;
+        return clientsQuantity;
     }
 
     @Override
     public void run() { // старт серверного потока
+
+        Message message = null;
+
         try {
-            clientsColvo++;                                               // Увеличение количество клиентов
+            clientsQuantity++;                                            // Увеличение количество клиентов
             listSocket.add(SOCKET);                                       // Добавление сокета в общий список
             inputStream = new ObjectInputStream(SOCKET.getInputStream()); // Создание постоянного одинночного входного потока
             ChatServer.enterMessage("Клиент подключен");             // Вывод сообщения, что клиент подключен
@@ -51,12 +53,12 @@ class SocketThread implements Runnable {
             try {
                 message = (Message) inputStream.readObject();           // Прием сообщение с постоянного входящего потока
                 ChatHistory.add(message);                               // Добавление сообщения в историю
-                AddToMySQL.addMessageToDB(message);                  // Добавление сообщения в базу
+                AddToMySQL.addMessageToDB(message);                     // Добавление сообщения в базу
                 // Окончание работы потока
                 if (message.getText().contains("END")) {                // Если во входящем сообщении есть END, отклють клиента
                     listSocket.remove(SOCKET);                          // Удалить из списка сокет клиента, который отключился от клиента
                     ChatServer.enterMessage("Клиент отключен");    // Клиент отключен
-                    clientsColvo--;                                     // Уменьшение количество клиентов
+                    clientsQuantity--;                                  // Уменьшение количество клиентов
                     return;
                 }
             } catch (IOException | ClassNotFoundException e) {
